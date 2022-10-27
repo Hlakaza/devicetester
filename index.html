@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1 id="renderDevice"></h1>
+    <br />
+    <br />
+    <br />
+    <h2 id="User_agent"></h2>
+    <script>
+      var userAgent =
+        navigator.userAgent ||
+        navigator.vendor ||
+        window.getMobileOperatingSystem;
+      function getMobileOperatingSystem() {
+        if (/huawei/i.test(userAgent)) {
+          return "harmony";
+        }
+        if (/android/i.test(userAgent)) {
+          return "android";
+        }
+        if (/iPad|iPhone|iPod/i.test(userAgent)) {
+          return "android";
+        }
+      }
+
+      var device = "I AM A:" + "<b>" + getMobileOperatingSystem();
+      +"</b>";
+
+      document.getElementById("renderDevice").innerHTML = device;
+      document.getElementById("User_agent").innerHTML =
+        JSON.stringify(userAgent);
+    </script>
+  </body>
+</html>
