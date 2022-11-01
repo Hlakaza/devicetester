@@ -38,12 +38,37 @@
       }
 
       var device = "I AM A:" + "<b>" + getMobileOperatingSystem();
-      +"</b>";
+        +"</b>";
+     var os = getMobileOperatingSystem()
+     function getAppLink() {
+        if (os == 'harmony') {
+           return ''
+        } 
+        if (os == 'android') {
+          return 'com.barclays.absa.banking'
+        }
 
-      function openApp() {
+        if (os == 'ios') {
+          return '';
+        }
+     }
+     function getAppStoreLink() {
+      if (os == 'harmony') {
+           return ''
+        } 
+        if (os == 'android') {
+          return 'https://play.google.com/store/apps/details?id=com.barclays.absa.banking'
+        }
+
+        if (os == 'ios') {
+          return 'https://apps.apple.com/za/app/absa-banking/id1085620596';
+        }
+     }
+      function openApp(os) {
+        appLink = getAppLink();
         var app = {
           launchApp: function () {
-            window.location.replace("id1085620596://");
+            window.location.replace(getAppLink());
             this.timer = setTimeout(this.openWebApp, 1000);
           },
 
