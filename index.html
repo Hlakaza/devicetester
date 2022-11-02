@@ -18,7 +18,8 @@
     <br />
     <br />
     <h2 id="User_agent"></h2>
-    <button onclick="openApp()">Open APP 1.4</button>
+    <button onclick="openApp()">Open APP 1.4</button><br>
+      <button onclick="openIframeApp()">Open IFRAME APP 1.0</button>
     <script>
       var userAgent =
         navigator.userAgent ||
@@ -46,9 +47,24 @@
       }
       var device = "I AM A:" + "<b>" + getMobileOperatingSystem();
       +"</b>";
+      
+      function openIframeApp() {
+              var ifrSrc = 'absabankingappurlscheme://';
+              var ifr = document.createElement('iframe');
+              ifr.src = ifrSrc ;
+              ifr.onload = function() { 
+                  alert('it is getting here');
+                  // if app is not installed, then will go this function
+                   window.location.replace(storeLink);
+              };
+              ifr.style.display = 'none';
+              document.body.appendChild(ifr);
+              setTimeout(function(){
+                  document.body.removeChild(ifr); // remove the iframe element
+              }, 1000);     
+       }
+      
       function openApp() {
-        $('body').append('<iframe class="app-detect" src="absabankingappurlscheme://" />')
-              .append(`<iframe class="app-detect" src="${getStoreLink()}" />`);
         var app = {
           launchApp: function () {
             window.location.replace("absabankingappurlscheme://");
@@ -59,7 +75,7 @@
           },
         };
 
-        // app.launchApp();
+        app.launchApp();
       }
 
       document.getElementById("renderDevice").innerHTML = device;
