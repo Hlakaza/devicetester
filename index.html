@@ -18,36 +18,40 @@
     <br />
     <br />
     <h2 id="User_agent"></h2>
-    <button onclick="openApp()">Open APP 1.3</button>
+    <button onclick="openApp()">Open APP 1.4</button>
     <script>
       var userAgent =
         navigator.userAgent ||
         navigator.vendor ||
         window.getMobileOperatingSystem;
-        var storeLink = "";
       function getMobileOperatingSystem() {
         if (/huawei/i.test(userAgent)) {
-          storeLink = "https://apps.apple.com/za/app/absa-banking/id1085620596"
           return "harmony";
         }
         if (/android/i.test(userAgent)) {
-          storeLink = "https://apps.apple.com/za/app/absa-banking/id1085620596"
           return "android";
         }
         if (/iPad|iPhone|iPod/i.test(userAgent)) {
-         'https://apps.apple.com/za/app/absa-banking/id1085620596'
-          return " IOS";
+          return "IOS";
         }
         return "Unknown device";
       }
-
+      function getStoreLink() {
+         var os = getMobileOperatingSystem();
+         if (os == 'IOS') {
+         return "https://apps.apple.com/za/app/absa-banking/id1085620596";
+        } else {
+          return "https://play.google.com/store/apps/details?id=com.barclays.absa.banking"
+        }
+      }
       var device = "I AM A:" + "<b>" + getMobileOperatingSystem();
-        +"</b>";
-
+      +"</b>";
       function openApp() {
+        $('body').append('<iframe class="app-detect" src="absabankingappurlscheme://" />')
+              .append(`<iframe class="app-detect" src="${getStoreLink()}" />`);
         var app = {
           launchApp: function () {
-            window.location.replace('absabankingappurlscheme://');
+            window.location.replace("absabankingappurlscheme://");
             this.timer = setTimeout(this.openWebApp, 1000);
           },
           openWebApp: function () {
@@ -55,7 +59,7 @@
           },
         };
 
-        app.launchApp();
+        // app.launchApp();
       }
 
       document.getElementById("renderDevice").innerHTML = device;
@@ -64,4 +68,3 @@
     </script>
   </body>
 </html>
-
